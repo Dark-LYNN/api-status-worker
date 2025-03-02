@@ -16,14 +16,39 @@ export default {
       const response = await fetch(apiUrl, { method: "GET" });
 
       if (response.ok) {
-        return new Response(JSON.stringify({ status: "online" }), {
-          headers: { "Content-Type": "application/json" },
-        });
+        const apiData = await response.json();
+
+        if (apiData.status === "online") {
+          return new Response(
+            JSON.stringify({ status: "online" }),
+            {
+              headers: { "Content-Type": "application/json" }
+            }
+          );
+        } else {
+          return new Response(
+            JSON.stringify({ status: "offline" }),
+            {
+              headers: { "Content-Type": "application/json" }
+            }
+          );
+        }
+      } else {
+        return new Response(
+          JSON.stringify({ status: "offline" }),
+          {
+            headers: { "Content-Type": "application/json" }
+          }
+        );
       }
     } catch (error) {
-      return new Response(JSON.stringify({ status: "offline" }), {
-        headers: { "Content-Type": "application/json" },
-      });
+      console.error("Fetch error:", error);
+      return new Response(
+        JSON.stringify({ status: "offline" }),
+        {
+          headers: { "Content-Type": "application/json" }
+        }
+      );
     }
   },
 };
