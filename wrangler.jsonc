@@ -1,7 +1,7 @@
 
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "my-first-worker",
+	"name": "api-status-worker",
 	"main": "src/index.js",
 	"compatibility_date": "2025-02-24",
 	"observability": {
