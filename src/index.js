@@ -9,7 +9,21 @@
  */
 
 export default {
-	async fetch(request, env, ctx) {
-		return new Response('Hello World!');
-	},
+  async fetch(request, env, ctx) {
+    const apiUrl = "https://api.lynnux.xyz";
+
+    try {
+      const response = await fetch(apiUrl, { method: "GET" });
+
+      if (response.ok) {
+        return new Response(JSON.stringify({ status: "online" }), {
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+    } catch (error) {
+      return new Response(JSON.stringify({ status: "offline" }), {
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+  },
 };
