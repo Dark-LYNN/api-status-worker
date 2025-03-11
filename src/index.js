@@ -25,8 +25,13 @@ export default {
         const apiData = await response.json();
 
         if (apiData.status === "online") {
-		      return response;
-        } else {
+          return new Response(
+             JSON.stringify({ status: "online" }),
+             {
+               headers: { "Content-Type": "application/json" }
+             }
+           );
+	} else {
           return new Response(
             JSON.stringify({ status: "offline" }),
             {
