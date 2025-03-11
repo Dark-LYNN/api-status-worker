@@ -13,18 +13,19 @@ export default {
     const apiUrl = "https://api.lynnux.xyz";
 
     try {
-      const response = await fetch(apiUrl, { method: "GET" });
-
+      const response = await fetch(apiUrl, {
+        method: "GET",
+        headers: {
+          "User-Agent": "Cloudflare Worker",
+          "Accept": "application/json",
+        }
+      });
+			
       if (response.ok) {
         const apiData = await response.json();
 
         if (apiData.status === "online") {
-          return new Response(
-            JSON.stringify({ status: "online" }),
-            {
-              headers: { "Content-Type": "application/json" }
-            }
-          );
+		      return response;
         } else {
           return new Response(
             JSON.stringify({ status: "offline" }),
