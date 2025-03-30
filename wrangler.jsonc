@@ -1,7 +1,7 @@
 
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "api-status-worker",
+	"name": "cdn-worker",
 	"main": "src/index.js",
 	"compatibility_date": "2025-02-24",
 	"observability": {
