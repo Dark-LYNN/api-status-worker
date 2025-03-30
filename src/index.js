@@ -10,51 +10,13 @@
 
 export default {
   async fetch(request, env, ctx) {
-    const apiUrl = "https://api.lynnux.xyz";
+    const url = new URL(request.url);
 
-    try {
-      const response = await fetch(apiUrl, {
-        method: "GET",
-        headers: {
-          "User-Agent": "Cloudflare Worker",
-          "Accept": "application/json",
-        }
-      });
-			
-      if (response.ok) {
-        const apiData = await response.json();
-
-        if (apiData.status === "online") {
-          return new Response(
-             JSON.stringify({ status: "online" }),
-             {
-               headers: { "Content-Type": "application/json" }
-             }
-           );
-	} else {
-          return new Response(
-            JSON.stringify({ status: "offline" }),
-            {
-              headers: { "Content-Type": "application/json" }
-            }
-          );
-        }
-      } else {
-        return new Response(
-          JSON.stringify({ status: "offline" }),
-          {
-            headers: { "Content-Type": "application/json" }
-          }
-        );
-      }
-    } catch (error) {
-      console.error("Fetch error:", error);
-      return new Response(
-        JSON.stringify({ status: "offline" }),
-        {
-          headers: { "Content-Type": "application/json" }
-        }
-      );
+    if (url.pathname.toLowerCase() === '/downloads/emotes/kiriko') {
+      url.pathname = '/downloads/emotes/Kiriko';
+      return Response.redirect(url.toString(), 301);
     }
+
+    return fetch(request);
   },
 };
